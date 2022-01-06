@@ -15,6 +15,7 @@ class QuestionsPage extends StatefulWidget {
 
 class _QuestionsPageState extends State<QuestionsPage> {
   List<Question> _questions = [];
+  final List<dynamic> _questionsAnswered = [];
 
   @override
   void initState() {
@@ -30,6 +31,30 @@ class _QuestionsPageState extends State<QuestionsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.quizz.name),
+        actions: [
+          _questionsAnswered.length == _questions.length
+              ? IconButton(
+                  icon: const Icon(Icons.check),
+                  onPressed: () => showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('Quiz submitted'),
+                      content:
+                          const Text('The quiz has been sent successfully!'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              : const SizedBox.shrink(),
+        ],
       ),
       body: ListView.builder(
         itemCount: _questions.length,
@@ -37,6 +62,14 @@ class _QuestionsPageState extends State<QuestionsPage> {
           return QuestionCard(
             index: (index + 1),
             question: _questions[index],
+            questionsAnswered: _questionsAnswered,
+            onChanged: (bool _inQuestionsAnswered) {
+              setState(() {
+                if (!_inQuestionsAnswered) {
+                  _questionsAnswered.add(_questions[index].title);
+                }
+              });
+            },
           );
         },
       ),

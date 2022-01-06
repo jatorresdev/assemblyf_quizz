@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
 class Answers extends StatefulWidget {
-  const Answers({
+  Answers({
     Key? key,
     required this.incorrectAnswers,
     required this.correctAnswer,
+    required this.isQuestionAnswered,
+    required this.onChanged,
   }) : super(key: key);
 
   final List<String> incorrectAnswers;
   final String correctAnswer;
+  final ValueChanged<bool> onChanged;
+  final bool isQuestionAnswered;
 
   @override
   State<Answers> createState() => _AnswersState();
@@ -42,6 +46,7 @@ class _AnswersState extends State<Answers> {
             onChanged: (newValue) {
               setState(() {
                 _selectedAnswer = newValue.toString();
+                widget.onChanged(widget.isQuestionAnswered);
               });
             },
           );

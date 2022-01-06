@@ -6,14 +6,20 @@ class QuestionCard extends StatelessWidget {
   const QuestionCard({
     Key? key,
     required this.question,
+    required this.questionsAnswered,
     required this.index,
+    required this.onChanged,
   }) : super(key: key);
 
   final Question question;
+  final List<dynamic> questionsAnswered;
   final int index;
+  final ValueChanged<bool> onChanged;
 
   @override
   Widget build(BuildContext context) {
+    bool _inQuestionsAnswered = questionsAnswered.contains(question.title);
+
     return SizedBox(
       height: 260,
       child: Card(
@@ -43,6 +49,8 @@ class QuestionCard extends StatelessWidget {
             Answers(
               correctAnswer: question.correctAnswer,
               incorrectAnswers: question.incorrectAnswers,
+              isQuestionAnswered: _inQuestionsAnswered,
+              onChanged: onChanged,
             ),
           ],
         ),
