@@ -50,6 +50,9 @@ class QuestionCard extends StatelessWidget {
               correctAnswer: question.correctAnswer,
               incorrectAnswers: question.incorrectAnswers,
               isQuestionAnswered: _inQuestionsAnswered,
+              typeAnswer: (question.type == 'image'
+                  ? TypeAnswer.image
+                  : TypeAnswer.text),
               onChanged: onChanged,
             ),
           ],

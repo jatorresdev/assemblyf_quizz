@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 
+enum TypeAnswer { text, image }
+
 class Answers extends StatefulWidget {
-  Answers({
+  const Answers({
     Key? key,
     required this.incorrectAnswers,
     required this.correctAnswer,
     required this.isQuestionAnswered,
     required this.onChanged,
+    required this.typeAnswer,
   }) : super(key: key);
 
   final List<String> incorrectAnswers;
   final String correctAnswer;
   final ValueChanged<bool> onChanged;
   final bool isQuestionAnswered;
+  final TypeAnswer typeAnswer;
 
   @override
   State<Answers> createState() => _AnswersState();
@@ -40,7 +44,16 @@ class _AnswersState extends State<Answers> {
       children: widget.incorrectAnswers.map(
         (answer) {
           return RadioListTile(
-            title: Text(answer),
+            title: (widget.typeAnswer == TypeAnswer.image
+                ? FadeInImage(
+                    alignment: Alignment.centerLeft,
+                    width: 30,
+                    height: 30,
+                    placeholder: const AssetImage('assets/icon-flag.png'),
+                    image: NetworkImage(answer),
+                    fit: BoxFit.contain,
+                  )
+                : Text(answer)),
             value: answer,
             groupValue: _selectedAnswer,
             onChanged: (newValue) {
