@@ -5,10 +5,10 @@ List<Map<String, dynamic>> questions = [
     "difficulty": "easy",
     "title": "What is the flag of Colombia?",
     "correct_answer":
-        "https://www.mundoprimaria.com/wp-content/uploads/2020/04/Colombia-Bandera-America.png",
+        "https://cdn4.iconfinder.com/data/icons/world-flags-rounded/900/colombia_colombian_national_country_flag-512.png",
     "incorrect_answers": [
-      "https://www.mundoprimaria.com/wp-content/uploads/2020/04/Ecuador-Bandera-America.png",
-      "https://www.mundoprimaria.com/wp-content/uploads/2020/04/Argentina-Bandera-America.png",
+      "https://cdn4.iconfinder.com/data/icons/world-flags-rounded/900/ecuador_national_country_flag-512.png",
+      "https://cdn4.iconfinder.com/data/icons/world-flags-rounded/900/argentina_argentinian_national_country_flag-512.png",
     ]
   },
   {
@@ -17,10 +17,10 @@ List<Map<String, dynamic>> questions = [
     "difficulty": "easy",
     "title": "What is the flag of Pakistan?",
     "correct_answer":
-        "https://www.mundoprimaria.com/wp-content/uploads/2020/04/Pakist%C3%A1n-Bandera-Asia.png",
+        "https://cdn4.iconfinder.com/data/icons/world-flags-rounded/900/pakistan_pakistani_national_country_flag-512.png",
     "incorrect_answers": [
-      "https://www.mundoprimaria.com/wp-content/uploads/2020/04/Taiwan-Bandera-Asia.png",
-      "https://www.mundoprimaria.com/wp-content/uploads/2020/04/Turkmenist%C3%A1n-Bandera-Asia.png",
+      "https://cdn4.iconfinder.com/data/icons/world-flags-rounded/900/taiwan_national_country_flag-512.png",
+      "https://cdn4.iconfinder.com/data/icons/world-flags-rounded/900/turkmenistan_national_country_flag-512.png",
     ]
   },
   {
@@ -29,10 +29,10 @@ List<Map<String, dynamic>> questions = [
     "difficulty": "easy",
     "title": "What is the flag of Albania?",
     "correct_answer":
-        "https://www.mundoprimaria.com/wp-content/uploads/2020/04/Albania-Bandera-Europa.png",
+        "https://cdn0.iconfinder.com/data/icons/world-flags-rounded/900/albania_national_country_flag-512.png",
     "incorrect_answers": [
-      "https://www.mundoprimaria.com/wp-content/uploads/2020/04/Eslovenia-Bandera-Europa.png",
-      "https://www.mundoprimaria.com/wp-content/uploads/2020/04/Lituania-Bandera-Europa.png",
+      "https://cdn4.iconfinder.com/data/icons/world-flags-rounded/900/slovenia_slovenian_national_country_flag-512.png",
+      "https://cdn4.iconfinder.com/data/icons/world-flags-rounded/900/lithuania_lithuanian_national_country_flag-512.png",
     ]
   },
   {
