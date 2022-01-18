@@ -27,14 +27,44 @@ class _QuizzesPageState extends State<QuizzesPage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: ListView.builder(
-        itemCount: _quizzes.length,
-        itemBuilder: (context, index) {
-          return QuizzCard(
-            quizz: _quizzes[index],
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return OrientationBuilder(
+            builder: (context, orientation) {
+              return orientation == Orientation.portrait &&
+                      constraints.maxWidth < 576
+                  ? widgetList()
+                  : widgetGrid(constraints);
+            },
           );
         },
       ),
+    );
+  }
+
+  ListView widgetList() {
+    return ListView.builder(
+      itemCount: quizzes.length,
+      itemBuilder: (context, index) {
+        return QuizzCard(
+          quizz: _quizzes[index],
+        );
+      },
+    );
+  }
+
+  GridView widgetGrid(BoxConstraints constraints) {
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: constraints.maxWidth >= 992 ? 3 : 2,
+        childAspectRatio: constraints.maxWidth >= 1200 ? 5 : 4.6,
+      ),
+      itemCount: quizzes.length,
+      itemBuilder: (context, index) {
+        return QuizzCard(
+          quizz: _quizzes[index],
+        );
+      },
     );
   }
 }
