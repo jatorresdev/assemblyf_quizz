@@ -5,26 +5,39 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:assemblyf_quizz/widgets/question_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:assemblyf_quizz/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const QuizzApp());
+  group("quizzes page", () {
+    testWidgets('should have a list view for the quizzes (mobile resolution)',
+        (WidgetTester tester) async {
+      double screenHeight =
+          MediaQueryData.fromWindow(tester.binding.window).size.height;
+      double screenWidth = 576 - (16 * 2);
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      tester.binding.window.physicalSizeTestValue =
+          Size(screenWidth, screenHeight);
+      tester.binding.window.devicePixelRatioTestValue = 1.0;
+      addTearDown(tester.binding.window.clearPhysicalSizeTestValue);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+      await tester.pumpWidget(const QuizzApp());
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+      // Verify that a list view exists if size is less than 576.
+      expect(find.byType(ListView), findsOneWidget);
+      expect(find.byType(GridView), findsNothing);
+    });
+
+    testWidgets('should have a grid view for the quizzes (tablet+ resolution)',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(const QuizzApp());
+
+      // Verify that a grid view exists if size is greater than or equal to 576.
+      expect(find.byType(GridView), findsOneWidget);
+      expect(find.byType(ListView), findsNothing);
+    });
   });
 }
