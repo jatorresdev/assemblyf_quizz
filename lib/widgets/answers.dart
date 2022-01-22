@@ -47,7 +47,7 @@ class _AnswersState extends State<Answers> {
 
   Column widgetColumn() {
     return Column(
-      children: widget.incorrectAnswers.map(
+      children: answers.map(
         (answer) {
           return boxAnswer(answer);
         },
@@ -57,7 +57,7 @@ class _AnswersState extends State<Answers> {
 
   Row widgetRow() {
     return Row(
-      children: widget.incorrectAnswers.map(
+      children: answers.map(
         (answer) {
           return Expanded(
             child: boxAnswer(answer),
