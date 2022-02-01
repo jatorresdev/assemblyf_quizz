@@ -18,46 +18,60 @@ class QuestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool _inQuestionsAnswered = questionsAnswered.contains(question.title);
+    bool _isQuestionsAnswered = questionsAnswered.contains(question.title);
 
-    return SizedBox(
-      height: 260,
-      child: Card(
-        margin: const EdgeInsets.symmetric(
-          horizontal: 10,
-          vertical: 10,
-        ),
-        child: Column(
-          children: [
-            ListTile(
-              leading: Text(
-                index.toString(),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline3
-                    ?.copyWith(color: Colors.orange),
-              ),
-              title: Text(
-                question.title,
-                overflow: TextOverflow.clip,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return OrientationBuilder(
+          builder: (context, orientation) {
+            bool isLayoutRow = orientation == Orientation.portrait &&
+                    constraints.maxWidth < 576
+                ? false
+                : true;
+
+            return SizedBox(
+              height: isLayoutRow ? 160 : 260,
+              child: Card(
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 10,
+                ),
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: Text(
+                        index.toString(),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline3
+                            ?.copyWith(color: Colors.orange),
+                      ),
+                      title: Text(
+                        question.title,
+                        overflow: TextOverflow.clip,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Answers(
+                      correctAnswer: question.correctAnswer,
+                      incorrectAnswers: question.incorrectAnswers,
+                      isQuestionAnswered: _isQuestionsAnswered,
+                      isLayoutRow: isLayoutRow,
+                      typeAnswer: (question.type == 'image'
+                          ? TypeAnswer.image
+                          : TypeAnswer.text),
+                      onChanged: onChanged,
+                    ),
+                  ],
                 ),
               ),
-            ),
-            Answers(
-              correctAnswer: question.correctAnswer,
-              incorrectAnswers: question.incorrectAnswers,
-              isQuestionAnswered: _inQuestionsAnswered,
-              typeAnswer: (question.type == 'image'
-                  ? TypeAnswer.image
-                  : TypeAnswer.text),
-              onChanged: onChanged,
-            ),
-          ],
-        ),
-      ),
+            );
+          },
+        );
+      },
     );
   }
 }
