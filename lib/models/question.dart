@@ -10,7 +10,6 @@ class Question {
     required this.difficulty,
     required this.answers,
     required this.correctAnswers,
-    required this.type,
     this.description,
     this.explanation,
     this.tip,
@@ -23,26 +22,22 @@ class Question {
   late final String difficulty;
   late final Answers answers;
   late final CorrectAnswers correctAnswers;
-
-  late final String type;
   late final String? description;
   late final String? explanation;
   late final String? tip;
 
   factory Question.fromMap(Map<String, dynamic> map) {
     return Question(
-      id: map['id'] as int,
-      title: map['question'] as String,
-      description: map['description'] as String?,
-      multipleCorrectAnswers: map['multiple_correct_answers'] == "true",
-      explanation: map['explanation'] as String?,
-      tip: map['tip'] as String?,
-      category: map['category'] as String,
-      difficulty: map['difficulty'] as String,
-      answers: Answers.fromMap(map['answers']),
-      correctAnswers: CorrectAnswers.fromMap(map['correct_answers']),
-      type: "text",
-    );
+        id: map['id'] as int,
+        title: map['question'] as String,
+        description: map['description'] as String?,
+        multipleCorrectAnswers: map['multiple_correct_answers'] == "true",
+        explanation: map['explanation'] as String?,
+        tip: map['tip'] as String?,
+        category: map['category'] as String,
+        difficulty: map['difficulty'] as String,
+        answers: Answers.fromMap(map['answers']),
+        correctAnswers: CorrectAnswers.fromMap(map['correct_answers']));
   }
 
   Map<String, dynamic> toMap() => {

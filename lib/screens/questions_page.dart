@@ -1,7 +1,7 @@
+import 'package:assemblyf_quizz/repositories/question_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:assemblyf_quizz/models/quizz.dart';
 import 'package:assemblyf_quizz/widgets/question_card.dart';
-import 'package:assemblyf_quizz/data/questions.dart';
 import 'package:assemblyf_quizz/models/question.dart';
 
 class QuestionsPage extends StatefulWidget {
@@ -17,22 +17,32 @@ class _QuestionsPageState extends State<QuestionsPage> {
   List<Question> _questions = [];
   final List<dynamic> _questionsAnswered = [];
 
+  getAllQuestions() async {
+    try {
+      List<Question> questions =
+          await QuestionRepository().getQuestions(widget.quizz.name);
+      setState(() {
+        _questions = questions;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   void initState() {
-    _questions = questions
-        .where((item) => item['quizz_id'] == widget.quizz.id)
-        .map((question) => Question.fromMap(question))
-        .toList();
     super.initState();
+    getAllQuestions();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.quizz.name),
+        title: Text(widget.quizz.description),
         actions: [
-          _questionsAnswered.length == _questions.length
+          _questions.isNotEmpty &&
+                  _questionsAnswered.length == _questions.length
               ? IconButton(
                   icon: const Icon(Icons.check),
                   onPressed: () => showDialog<String>(
@@ -57,6 +67,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
         ],
       ),
       body: ListView.builder(
+        shrinkWrap: true,
         itemCount: _questions.length,
         itemBuilder: (context, index) {
           return QuestionCard(
