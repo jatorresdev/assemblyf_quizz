@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:assemblyf_quizz/models/quizz.dart';
 import 'package:assemblyf_quizz/widgets/question_card.dart';
 import 'package:assemblyf_quizz/models/question.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class QuestionsPage extends StatefulWidget {
   const QuestionsPage({Key? key, required this.quizz}) : super(key: key);
@@ -19,10 +20,12 @@ class _QuestionsPageState extends State<QuestionsPage> {
 
   getAllQuestions() async {
     try {
+      EasyLoading.show(status: 'loading...');
       List<Question> questions =
           await QuestionRepository().getQuestions(widget.quizz.name);
       setState(() {
         _questions = questions;
+        EasyLoading.dismiss();
       });
     } catch (e) {
       print(e);

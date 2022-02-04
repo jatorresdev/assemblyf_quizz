@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:assemblyf_quizz/screens/quizzes_page.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() {
   runApp(const QuizzApp());
@@ -18,6 +19,7 @@ class QuizzApp extends StatelessWidget {
         primarySwatch: Colors.orange,
       ),
       home: const QuizzesPage(title: 'Quizz App'),
+      builder: EasyLoading.init(),
     );
   }
 }

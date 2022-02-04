@@ -9,13 +9,13 @@ class AnswersGrid extends StatefulWidget {
     required this.answers,
     required this.isQuestionAnswered,
     required this.onChanged,
-    required this.isLayoutRow,
+    required this.isLandscape,
   }) : super(key: key);
 
   final Answers answers;
   final ValueChanged<bool> onChanged;
   final bool isQuestionAnswered;
-  final bool isLayoutRow;
+  final bool isLandscape;
 
   @override
   State<AnswersGrid> createState() => _AnswersGridState();
@@ -35,7 +35,7 @@ class _AnswersGridState extends State<AnswersGrid> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.isLayoutRow ? widgetRow() : widgetColumn();
+    return widget.isLandscape ? widgetGridView() : widgetColumn();
   }
 
   Column widgetColumn() {
@@ -44,10 +44,14 @@ class _AnswersGridState extends State<AnswersGrid> {
     );
   }
 
-  Row widgetRow() {
-    return Row(
+  GridView widgetGridView() {
+    return GridView.count(
+      physics: const ScrollPhysics(),
+      shrinkWrap: true,
+      crossAxisCount: 2,
+      childAspectRatio: 5.0,
       children: _answers.entries
-          .map((answer) => Expanded(child: boxAnswer(answer)))
+          .map((answer) => GridTile(child: boxAnswer(answer)))
           .toList(),
     );
   }

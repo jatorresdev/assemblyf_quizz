@@ -24,7 +24,7 @@ class QuestionCard extends StatelessWidget {
       builder: (context, constraints) {
         return OrientationBuilder(
           builder: (context, orientation) {
-            bool isLayoutRow = orientation == Orientation.portrait &&
+            bool isLandscape = orientation == Orientation.portrait &&
                     constraints.maxWidth < 576
                 ? false
                 : true;
@@ -57,7 +57,7 @@ class QuestionCard extends StatelessWidget {
                     AnswersGrid(
                       answers: question.answers,
                       isQuestionAnswered: _isQuestionsAnswered,
-                      isLayoutRow: isLayoutRow,
+                      isLandscape: isLandscape,
                       onChanged: onChanged,
                     ),
                   ],
