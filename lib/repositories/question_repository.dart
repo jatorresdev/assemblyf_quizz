@@ -8,8 +8,8 @@ class QuestionRepository {
       : questionApiClient = questionApiClient ?? QuestionApiClient();
 
   Future<List<Question>> getQuestions(String category) async {
-    final List<Question> questions = await questionApiClient.fetchQuestions(
-        'J8SEJrD3wmbP4sFEmVapTng2kb0u7Y5fDEAi1dcn', category);
+    final List<Question> questions =
+        await questionApiClient.fetchQuestions(category);
 
     return questions;
   }

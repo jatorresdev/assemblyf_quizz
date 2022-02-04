@@ -29,6 +29,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
       });
     } catch (e) {
       print(e);
+      EasyLoading.dismiss();
     }
   }
 
