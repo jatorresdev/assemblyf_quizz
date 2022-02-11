@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:assemblyf_quizz/main.dart';
-import 'package:assemblyf_quizz/widgets/answers.dart';
+import 'package:assemblyf_quizz/widgets/answers_grid.dart';
 import 'package:assemblyf_quizz/widgets/question_card.dart';
 
 void main() {
@@ -77,7 +77,7 @@ void main() {
       await tester.tap(listTile.first);
       await tester.pumpAndSettle();
 
-      expect(find.byType(Answers), findsWidgets);
+      expect(find.byType(AnswersGrid), findsWidgets);
       expect(
           find.ancestor(
             of: find.byType(RadioListTile<String>),
@@ -97,7 +97,7 @@ void main() {
       await tester.tap(listTile.first);
       await tester.pumpAndSettle();
 
-      expect(find.byType(Answers), findsWidgets);
+      expect(find.byType(AnswersGrid), findsWidgets);
       expect(
           find.ancestor(
             of: find.byType(RadioListTile<String>),

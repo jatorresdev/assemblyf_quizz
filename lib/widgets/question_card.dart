@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:assemblyf_quizz/widgets/answers.dart';
+import 'package:assemblyf_quizz/widgets/answers_grid.dart';
 import 'package:assemblyf_quizz/models/question.dart';
 
 class QuestionCard extends StatelessWidget {
@@ -24,13 +24,12 @@ class QuestionCard extends StatelessWidget {
       builder: (context, constraints) {
         return OrientationBuilder(
           builder: (context, orientation) {
-            bool isLayoutRow = orientation == Orientation.portrait &&
+            bool isLandscape = orientation == Orientation.portrait &&
                     constraints.maxWidth < 576
                 ? false
                 : true;
 
             return SizedBox(
-              height: isLayoutRow ? 160 : 260,
               child: Card(
                 margin: const EdgeInsets.symmetric(
                   horizontal: 10,
@@ -55,14 +54,10 @@ class QuestionCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Answers(
-                      correctAnswer: question.correctAnswer,
-                      incorrectAnswers: question.incorrectAnswers,
+                    AnswersGrid(
+                      answers: question.answers,
                       isQuestionAnswered: _isQuestionsAnswered,
-                      isLayoutRow: isLayoutRow,
-                      typeAnswer: (question.type == 'image'
-                          ? TypeAnswer.image
-                          : TypeAnswer.text),
+                      isLandscape: isLandscape,
                       onChanged: onChanged,
                     ),
                   ],

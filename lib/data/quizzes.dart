@@ -1,17 +1,34 @@
 List<Map<String, dynamic>> quizzes = [
   {
-    "id": 1,
-    "name": "Entertainment: Film",
-    "description": "Questions related to Film",
+    "name": "Linux",
+    "description": "Linux Quiz",
   },
   {
-    "id": 2,
-    "name": "General Knowledge: Flags",
-    "description": "Questions related to Flags",
+    "name": "BASH",
+    "description": "BASH Quiz",
   },
   {
-    "id": 3,
-    "name": "Entertainment: Video Games",
-    "description": "Questions related Video Games",
+    "name": "Docker",
+    "description": "Docker Quiz",
+  },
+  {
+    "name": "SQL",
+    "description": "SQL Quiz",
+  },
+  {
+    "name": "CMS",
+    "description": "CMS Quiz",
+  },
+  {
+    "name": "Code",
+    "description": "Code Quiz",
+  },
+  {
+    "name": "DevOps",
+    "description": "DevOps Quiz",
+  },
+  {
+    "name": "Uncategorized",
+    "description": "Uncategorized Quiz",
   },
 ];
