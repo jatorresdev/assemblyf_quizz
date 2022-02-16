@@ -1,7 +1,10 @@
-import 'package:assemblyf_quizz/widgets/quizz_card.dart';
 import 'package:flutter/material.dart';
-import 'package:assemblyf_quizz/data/quizzes.dart';
-import 'package:assemblyf_quizz/models/quizz.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
+import 'package:assemblyf_quizz/models/response.dart';
+import 'package:assemblyf_quizz/repositories/quiz_repository.dart';
+import 'package:assemblyf_quizz/widgets/quizz_card.dart';
+import 'package:assemblyf_quizz/models/quiz.dart';
 
 class QuizzesPage extends StatefulWidget {
   const QuizzesPage({Key? key, required this.title}) : super(key: key);
@@ -13,12 +16,30 @@ class QuizzesPage extends StatefulWidget {
 }
 
 class _QuizzesPageState extends State<QuizzesPage> {
-  List<Quizz> _quizzes = [];
+  List<Quiz> _quizzes = [];
+
+  getAllQuizzes() async {
+    try {
+      EasyLoading.show(status: 'loading...');
+      Response<Quiz> quizzes = await QuizRepository().getQuizzess();
+
+      setState(() {
+        _quizzes = quizzes.data;
+        EasyLoading.dismiss();
+      });
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(error.toString()),
+      ));
+
+      EasyLoading.dismiss();
+    }
+  }
 
   @override
   void initState() {
-    _quizzes = quizzes.map((quizz) => Quizz.fromMap(quizz)).toList();
     super.initState();
+    getAllQuizzes();
   }
 
   @override
@@ -44,7 +65,7 @@ class _QuizzesPageState extends State<QuizzesPage> {
 
   ListView widgetList() {
     return ListView.builder(
-      itemCount: quizzes.length,
+      itemCount: _quizzes.length,
       itemBuilder: (context, index) {
         return QuizzCard(
           quizz: _quizzes[index],
@@ -59,7 +80,7 @@ class _QuizzesPageState extends State<QuizzesPage> {
         crossAxisCount: constraints.maxWidth >= 992 ? 3 : 2,
         childAspectRatio: constraints.maxWidth >= 1200 ? 5 : 4.6,
       ),
-      itemCount: quizzes.length,
+      itemCount: _quizzes.length,
       itemBuilder: (context, index) {
         return QuizzCard(
           quizz: _quizzes[index],

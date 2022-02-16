@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:assemblyf_quizz/repositories/question_repository.dart';
-import 'package:assemblyf_quizz/models/quizz.dart';
+import 'package:assemblyf_quizz/models/quiz.dart';
 import 'package:assemblyf_quizz/widgets/question_card.dart';
 import 'package:assemblyf_quizz/models/question.dart';
 
 class QuestionsPage extends StatefulWidget {
   const QuestionsPage({Key? key, required this.quizz}) : super(key: key);
 
-  final Quizz quizz;
+  final Quiz quizz;
 
   @override
   _QuestionsPageState createState() => _QuestionsPageState();
