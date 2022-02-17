@@ -21,10 +21,10 @@ class _QuizzesPageState extends State<QuizzesPage> {
   getAllQuizzes() async {
     try {
       EasyLoading.show(status: 'loading...');
-      Response<Quiz> quizzes = await QuizRepository().getQuizzess();
+      Response<Quiz> response = await QuizRepository().getQuizzess();
 
       setState(() {
-        _quizzes = quizzes.data;
+        _quizzes = response.data;
         EasyLoading.dismiss();
       });
     } catch (error) {

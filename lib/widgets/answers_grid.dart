@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:assemblyf_quizz/models/answers.dart';
 
 enum TypeAnswer { text, image }

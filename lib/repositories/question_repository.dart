@@ -1,4 +1,5 @@
 import 'package:assemblyf_quizz/models/question.dart';
+import 'package:assemblyf_quizz/models/response.dart';
 import 'package:assemblyf_quizz/services/question_api_client.dart';
 
 class QuestionRepository {
@@ -7,9 +8,9 @@ class QuestionRepository {
   QuestionRepository({QuestionApiClient? questionApiClient})
       : questionApiClient = questionApiClient ?? QuestionApiClient();
 
-  Future<List<Question>> getQuestions(String category) async {
-    final List<Question> questions =
-        await questionApiClient.fetchQuestions(category);
+  Future<Response<Question>> getQuestions(int quizId) async {
+    final Response<Question> questions =
+        await questionApiClient.fetchQuestions(quizId);
 
     return questions;
   }
