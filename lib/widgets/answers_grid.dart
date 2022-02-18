@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'package:assemblyf_quizz/models/answers.dart';
-
-enum TypeAnswer { text, image }
+import 'package:assemblyf_quizz/models/correct_answer.dart';
+import 'package:assemblyf_quizz/models/notifiers/answer_bag.dart';
+import 'package:assemblyf_quizz/models/question.dart';
 
 class AnswersGrid extends StatefulWidget {
   const AnswersGrid({
     Key? key,
-    required this.answers,
-    required this.isQuestionAnswered,
-    required this.onChanged,
+    required this.question,
     required this.isLandscape,
   }) : super(key: key);
 
-  final Answers answers;
-  final ValueChanged<bool> onChanged;
-  final bool isQuestionAnswered;
+  final Question question;
   final bool isLandscape;
 
   @override
@@ -28,7 +25,7 @@ class _AnswersGridState extends State<AnswersGrid> {
 
   @override
   void initState() {
-    _answers = widget.answers.toMap();
+    _answers = widget.question.answers.toMap();
     _answers.removeWhere((key, value) => value == null);
 
     super.initState();
@@ -58,14 +55,18 @@ class _AnswersGridState extends State<AnswersGrid> {
   }
 
   RadioListTile<String> boxAnswer(MapEntry<String, dynamic> answer) {
+    var answerBag = context.read<AnswerBag>();
+
     return RadioListTile(
       title: Text(answer.value),
-      value: answer.key,
+      value: answer.value,
       groupValue: _selectedAnswer,
       onChanged: (newValue) {
         setState(() {
           _selectedAnswer = newValue.toString();
-          widget.onChanged(widget.isQuestionAnswered);
+
+          answerBag.add(CorrectAnswer(
+              questionId: widget.question.id, questionAnswer: _selectedAnswer));
         });
       },
     );

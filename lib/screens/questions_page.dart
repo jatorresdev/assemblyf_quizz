@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:provider/provider.dart';
 
 import 'package:assemblyf_quizz/repositories/question_repository.dart';
+import 'package:assemblyf_quizz/models/notifiers/answer_bag.dart';
 import 'package:assemblyf_quizz/models/quiz.dart';
 import 'package:assemblyf_quizz/models/response.dart';
 import 'package:assemblyf_quizz/models/question.dart';
@@ -18,7 +20,6 @@ class QuestionsPage extends StatefulWidget {
 
 class _QuestionsPageState extends State<QuestionsPage> {
   List<Question> _questions = [];
-  final List<dynamic> _questionsAnswered = [];
 
   getAllQuestions() async {
     try {
@@ -29,6 +30,7 @@ class _QuestionsPageState extends State<QuestionsPage> {
       setState(() {
         _questions = response.data;
         EasyLoading.dismiss();
+        Provider.of<AnswerBag>(context, listen: false).removeAll();
       });
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -48,12 +50,14 @@ class _QuestionsPageState extends State<QuestionsPage> {
 
   @override
   Widget build(BuildContext context) {
+    var answerBag = Provider.of<AnswerBag>(context, listen: true);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.quizz.description),
         actions: [
           _questions.isNotEmpty &&
-                  _questionsAnswered.length == _questions.length
+                  answerBag.correctAnswersCount == _questions.length
               ? IconButton(
                   icon: const Icon(Icons.check),
                   onPressed: () => showDialog<String>(
@@ -84,14 +88,6 @@ class _QuestionsPageState extends State<QuestionsPage> {
           return QuestionCard(
             index: (index + 1),
             question: _questions[index],
-            questionsAnswered: _questionsAnswered,
-            onChanged: (bool _inQuestionsAnswered) {
-              setState(() {
-                if (!_inQuestionsAnswered) {
-                  _questionsAnswered.add(_questions[index].title);
-                }
-              });
-            },
           );
         },
       ),
