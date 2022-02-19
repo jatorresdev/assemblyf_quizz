@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:assemblyf_quizz/models/quiz.dart';
+import 'package:assemblyf_quizz/models/quiz_score.dart';
 import 'package:assemblyf_quizz/models/response.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -35,5 +36,27 @@ class QuizApiClient {
     Response<Quiz> quizzes = Response<Quiz>.fromMap(quizzesJson);
 
     return quizzes;
+  }
+
+  Future<QuizScore> score(int quizId, String data) async {
+    final quizScoreUrl = '$baseUrl/quizzes/$quizId/score';
+
+    final quizScoreResponse = await httpClient.post(Uri.parse(quizScoreUrl),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.acceptHeader: 'application/json',
+          HttpHeaders.authorizationHeader: 'Bearer $bearerToken',
+        },
+        body: data);
+
+    if (quizScoreResponse.statusCode != 200) {
+      throw 'An error occurred while retrieving the quizzes.';
+    }
+
+    final quizScoreJson = jsonDecode(quizScoreResponse.body);
+
+    QuizScore quizScore = QuizScore.fromMap(quizScoreJson);
+
+    return quizScore;
   }
 }

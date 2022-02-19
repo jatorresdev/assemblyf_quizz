@@ -24,7 +24,10 @@ class QuizzApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.orange,
         ),
-        home: const QuizzesPage(title: 'Quizz App'),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const QuizzesPage(title: 'Quizz App'),
+        },
         builder: EasyLoading.init(),
       ),
     );

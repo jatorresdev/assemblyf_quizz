@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 
-import 'package:assemblyf_quizz/repositories/question_repository.dart';
 import 'package:assemblyf_quizz/models/notifiers/answer_bag.dart';
 import 'package:assemblyf_quizz/models/quiz.dart';
 import 'package:assemblyf_quizz/models/response.dart';
 import 'package:assemblyf_quizz/models/question.dart';
+import 'package:assemblyf_quizz/repositories/question_repository.dart';
+import 'package:assemblyf_quizz/screens/quiz_score_page.dart';
 import 'package:assemblyf_quizz/widgets/question_card.dart';
 
 class QuestionsPage extends StatefulWidget {
@@ -70,7 +71,16 @@ class _QuestionsPageState extends State<QuestionsPage> {
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pop();
-                            Navigator.of(context).pop();
+
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return QuizScorePage(
+                                    quiz: widget.quizz,
+                                  );
+                                },
+                              ),
+                            );
                           },
                           child: const Text('OK'),
                         ),
