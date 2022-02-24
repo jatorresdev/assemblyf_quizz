@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:assemblyf_quizz/widgets/answers_grid.dart';
 import 'package:assemblyf_quizz/models/question.dart';
 
@@ -6,20 +7,14 @@ class QuestionCard extends StatelessWidget {
   const QuestionCard({
     Key? key,
     required this.question,
-    required this.questionsAnswered,
     required this.index,
-    required this.onChanged,
   }) : super(key: key);
 
   final Question question;
-  final List<dynamic> questionsAnswered;
   final int index;
-  final ValueChanged<bool> onChanged;
 
   @override
   Widget build(BuildContext context) {
-    bool _isQuestionsAnswered = questionsAnswered.contains(question.title);
-
     return LayoutBuilder(
       builder: (context, constraints) {
         return OrientationBuilder(
@@ -55,10 +50,8 @@ class QuestionCard extends StatelessWidget {
                       ),
                     ),
                     AnswersGrid(
-                      answers: question.answers,
-                      isQuestionAnswered: _isQuestionsAnswered,
+                      question: question,
                       isLandscape: isLandscape,
-                      onChanged: onChanged,
                     ),
                   ],
                 ),

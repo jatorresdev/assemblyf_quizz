@@ -1,55 +1,39 @@
 import 'package:assemblyf_quizz/models/answers.dart';
-import 'package:assemblyf_quizz/models/correct_answers.dart';
 
 class Question {
   Question({
     required this.id,
     required this.title,
-    required this.multipleCorrectAnswers,
-    required this.category,
-    required this.difficulty,
     required this.answers,
-    required this.correctAnswers,
-    this.description,
-    this.explanation,
-    this.tip,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.publishedAt,
   });
 
   late final int id;
   late final String title;
-  late final bool multipleCorrectAnswers;
-  late final String category;
-  late final String difficulty;
   late final Answers answers;
-  late final CorrectAnswers correctAnswers;
-  late final String? description;
-  late final String? explanation;
-  late final String? tip;
+  late final DateTime createdAt;
+  late final DateTime updatedAt;
+  late final DateTime publishedAt;
 
   factory Question.fromMap(Map<String, dynamic> map) {
     return Question(
-        id: map['id'] as int,
-        title: map['question'] as String,
-        description: map['description'] as String?,
-        multipleCorrectAnswers: map['multiple_correct_answers'] == "true",
-        explanation: map['explanation'] as String?,
-        tip: map['tip'] as String?,
-        category: map['category'] as String,
-        difficulty: map['difficulty'] as String,
-        answers: Answers.fromMap(map['answers']),
-        correctAnswers: CorrectAnswers.fromMap(map['correct_answers']));
+      id: map['id'] as int,
+      title: map['attributes']['title'] as String,
+      answers: Answers.fromMap(map['attributes']),
+      createdAt: DateTime.parse(map['attributes']['createdAt']),
+      updatedAt: DateTime.parse(map['attributes']['updatedAt']),
+      publishedAt: DateTime.parse(map['attributes']['publishedAt']),
+    );
   }
 
   Map<String, dynamic> toMap() => {
         "id": id,
-        "question": title,
-        "description": description,
-        "multiple_correct_answers": multipleCorrectAnswers,
-        "explanation": explanation,
-        "tip": tip,
-        "category": category,
-        "difficulty": difficulty,
-        "answers": answers.toMap(),
-        "correct_answers": correctAnswers.toMap(),
+        "title": title,
+        "answers": answers,
+        "createdAt": createdAt,
+        "updatedAt": updatedAt,
+        "publishedAt": publishedAt,
       };
 }

@@ -1,6 +1,6 @@
 import 'package:assemblyf_quizz/screens/questions_page.dart';
 import 'package:flutter/material.dart';
-import 'package:assemblyf_quizz/models/quizz.dart';
+import 'package:assemblyf_quizz/models/quiz.dart';
 
 class QuizzCard extends StatelessWidget {
   const QuizzCard({
@@ -8,7 +8,7 @@ class QuizzCard extends StatelessWidget {
     required this.quizz,
   }) : super(key: key);
 
-  final Quizz quizz;
+  final Quiz quizz;
 
   @override
   Widget build(BuildContext context) {

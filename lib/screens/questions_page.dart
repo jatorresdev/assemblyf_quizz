@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:provider/provider.dart';
 
-import 'package:assemblyf_quizz/repositories/question_repository.dart';
-import 'package:assemblyf_quizz/models/quizz.dart';
-import 'package:assemblyf_quizz/widgets/question_card.dart';
+import 'package:assemblyf_quizz/models/notifiers/answer_bag.dart';
+import 'package:assemblyf_quizz/models/quiz.dart';
+import 'package:assemblyf_quizz/models/response.dart';
 import 'package:assemblyf_quizz/models/question.dart';
+import 'package:assemblyf_quizz/repositories/question_repository.dart';
+import 'package:assemblyf_quizz/screens/quiz_score_page.dart';
+import 'package:assemblyf_quizz/widgets/question_card.dart';
 
 class QuestionsPage extends StatefulWidget {
   const QuestionsPage({Key? key, required this.quizz}) : super(key: key);
 
-  final Quizz quizz;
+  final Quiz quizz;
 
   @override
   _QuestionsPageState createState() => _QuestionsPageState();
@@ -17,16 +21,17 @@ class QuestionsPage extends StatefulWidget {
 
 class _QuestionsPageState extends State<QuestionsPage> {
   List<Question> _questions = [];
-  final List<dynamic> _questionsAnswered = [];
 
   getAllQuestions() async {
     try {
       EasyLoading.show(status: 'loading...');
-      List<Question> questions =
-          await QuestionRepository().getQuestions(widget.quizz.name);
+      Response<Question> response =
+          await QuestionRepository().getQuestions(widget.quizz.id);
+
       setState(() {
-        _questions = questions;
+        _questions = response.data;
         EasyLoading.dismiss();
+        Provider.of<AnswerBag>(context, listen: false).removeAll();
       });
     } catch (error) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -46,12 +51,14 @@ class _QuestionsPageState extends State<QuestionsPage> {
 
   @override
   Widget build(BuildContext context) {
+    var answerBag = Provider.of<AnswerBag>(context, listen: true);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.quizz.description),
         actions: [
           _questions.isNotEmpty &&
-                  _questionsAnswered.length == _questions.length
+                  answerBag.correctAnswersCount == _questions.length
               ? IconButton(
                   icon: const Icon(Icons.check),
                   onPressed: () => showDialog<String>(
@@ -64,7 +71,16 @@ class _QuestionsPageState extends State<QuestionsPage> {
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pop();
-                            Navigator.of(context).pop();
+
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return QuizScorePage(
+                                    quiz: widget.quizz,
+                                  );
+                                },
+                              ),
+                            );
                           },
                           child: const Text('OK'),
                         ),
@@ -82,14 +98,6 @@ class _QuestionsPageState extends State<QuestionsPage> {
           return QuestionCard(
             index: (index + 1),
             question: _questions[index],
-            questionsAnswered: _questionsAnswered,
-            onChanged: (bool _inQuestionsAnswered) {
-              setState(() {
-                if (!_inQuestionsAnswered) {
-                  _questionsAnswered.add(_questions[index].title);
-                }
-              });
-            },
           );
         },
       ),
