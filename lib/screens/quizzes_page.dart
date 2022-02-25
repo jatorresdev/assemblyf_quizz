@@ -1,61 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:assemblyf_quizz/providers/quiz_list_provider.dart';
 import 'package:assemblyf_quizz/models/response.dart';
-import 'package:assemblyf_quizz/repositories/quiz_repository.dart';
-import 'package:assemblyf_quizz/widgets/quizz_card.dart';
 import 'package:assemblyf_quizz/models/quiz.dart';
+import 'package:assemblyf_quizz/widgets/quizz_card.dart';
 
-class QuizzesPage extends StatefulWidget {
+class QuizzesPage extends ConsumerWidget {
   const QuizzesPage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _QuizzesPageState createState() => _QuizzesPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    AsyncValue<Response<Quiz>> quizListRef = ref.watch(quizListProvider);
+    ref.listen(
+      quizListProvider,
+      (AsyncValue<Response<Quiz>>? previousResponse,
+          AsyncValue<Response<Quiz>> newResponse) {
+        newResponse.maybeWhen(
+          error: ((error, stackTrace) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(error.toString()),
+            ));
+          }),
+          orElse: () {},
+        );
+      },
+    );
 
-class _QuizzesPageState extends State<QuizzesPage> {
-  List<Quiz> _quizzes = [];
-
-  getAllQuizzes() async {
-    try {
-      EasyLoading.show(status: 'loading...');
-      Response<Quiz> response = await QuizRepository().getQuizzess();
-
-      setState(() {
-        _quizzes = response.data;
-        EasyLoading.dismiss();
-      });
-    } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(error.toString()),
-      ));
-
-      EasyLoading.dismiss();
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getAllQuizzes();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(title),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return OrientationBuilder(
             builder: (context, orientation) {
-              return orientation == Orientation.portrait &&
-                      constraints.maxWidth < 576
-                  ? widgetList()
-                  : widgetGrid(constraints);
+              return quizListRef.when(
+                loading: () {
+                  EasyLoading.show(status: 'loading...');
+
+                  return const SizedBox.shrink();
+                },
+                error: (error, stack) {
+                  EasyLoading.dismiss();
+
+                  return const Center(
+                    child: Text(
+                      'No quizzes available',
+                      textAlign: TextAlign.center,
+                    ),
+                  );
+                },
+                data: (responseQuiz) {
+                  EasyLoading.dismiss();
+
+                  return orientation == Orientation.portrait &&
+                          constraints.maxWidth < 576
+                      ? widgetList(responseQuiz.data)
+                      : widgetGrid(responseQuiz.data, constraints);
+                },
+              );
             },
           );
         },
@@ -63,27 +70,27 @@ class _QuizzesPageState extends State<QuizzesPage> {
     );
   }
 
-  ListView widgetList() {
+  ListView widgetList(List<Quiz> quizzes) {
     return ListView.builder(
-      itemCount: _quizzes.length,
+      itemCount: quizzes.length,
       itemBuilder: (context, index) {
         return QuizzCard(
-          quizz: _quizzes[index],
+          quizz: quizzes[index],
         );
       },
     );
   }
 
-  GridView widgetGrid(BoxConstraints constraints) {
+  GridView widgetGrid(List<Quiz> quizzes, BoxConstraints constraints) {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: constraints.maxWidth >= 992 ? 3 : 2,
         childAspectRatio: constraints.maxWidth >= 1200 ? 5 : 4.6,
       ),
-      itemCount: _quizzes.length,
+      itemCount: quizzes.length,
       itemBuilder: (context, index) {
         return QuizzCard(
-          quizz: _quizzes[index],
+          quizz: quizzes[index],
         );
       },
     );

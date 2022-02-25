@@ -38,6 +38,7 @@ dependencies:
   flutter_easyloading: ^3.0.3
   flutter_dotenv: ^5.0.2
   provider: ^6.0.2
+  flutter_riverpod: ^1.0.3
 
 dev_dependencies:
   flutter_test:

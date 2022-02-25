@@ -12,10 +12,8 @@ class QuizRepository {
   QuizRepository({QuizApiClient? quizApiClient})
       : quizApiClient = quizApiClient ?? QuizApiClient();
 
-  Future<Response<Quiz>> getQuizzess() async {
-    final Response<Quiz> quizzes = await quizApiClient.fetchQuizzes();
-
-    return quizzes;
+  Future<Response<Quiz>> getQuizzess() {
+    return quizApiClient.fetchQuizzes();
   }
 
   Future<QuizScore> getScore(int quizId, List<CorrectAnswer> answers) async {
