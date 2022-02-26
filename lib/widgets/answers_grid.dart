@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'package:assemblyf_quizz/models/correct_answer.dart';
 import 'package:assemblyf_quizz/models/notifiers/answer_bag.dart';
@@ -55,7 +54,7 @@ class _AnswersGridState extends State<AnswersGrid> {
   }
 
   RadioListTile<String> boxAnswer(MapEntry<String, dynamic> answer) {
-    var answerBag = context.read<AnswerBag>();
+    //var answerBag = context.read<AnswerBag>();
 
     return RadioListTile(
       title: Text(answer.value),
@@ -65,8 +64,8 @@ class _AnswersGridState extends State<AnswersGrid> {
         setState(() {
           _selectedAnswer = newValue.toString();
 
-          answerBag.add(CorrectAnswer(
-              questionId: widget.question.id, questionAnswer: _selectedAnswer));
+          // answerBag.add(CorrectAnswer(
+          //     questionId: widget.question.id, questionAnswer: _selectedAnswer));
         });
       },
     );

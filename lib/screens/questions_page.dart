@@ -1,103 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:assemblyf_quizz/models/notifiers/answer_bag.dart';
+import 'package:assemblyf_quizz/providers/question_list_provider.dart';
 import 'package:assemblyf_quizz/models/quiz.dart';
 import 'package:assemblyf_quizz/models/response.dart';
 import 'package:assemblyf_quizz/models/question.dart';
-import 'package:assemblyf_quizz/repositories/question_repository.dart';
-import 'package:assemblyf_quizz/screens/quiz_score_page.dart';
 import 'package:assemblyf_quizz/widgets/question_card.dart';
 
-class QuestionsPage extends StatefulWidget {
+class QuestionsPage extends ConsumerWidget {
   const QuestionsPage({Key? key, required this.quizz}) : super(key: key);
 
   final Quiz quizz;
 
   @override
-  _QuestionsPageState createState() => _QuestionsPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final questionListRef = ref.watch(questionListProvider(quizz.id));
 
-class _QuestionsPageState extends State<QuestionsPage> {
-  List<Question> _questions = [];
-
-  getAllQuestions() async {
-    try {
-      EasyLoading.show(status: 'loading...');
-      Response<Question> response =
-          await QuestionRepository().getQuestions(widget.quizz.id);
-
-      setState(() {
-        _questions = response.data;
-        EasyLoading.dismiss();
-        Provider.of<AnswerBag>(context, listen: false).removeAll();
-      });
-    } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(error.toString()),
-      ));
-
-      EasyLoading.dismiss();
-      Navigator.of(context).pop();
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getAllQuestions();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var answerBag = Provider.of<AnswerBag>(context, listen: true);
+    ref.listen(
+      questionListProvider(quizz.id),
+      (AsyncValue<Response<Question>>? previousResponse,
+          AsyncValue<Response<Question>> newResponse) {
+        newResponse.maybeWhen(
+          error: ((error, stackTrace) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(error.toString()),
+            ));
+          }),
+          orElse: () {},
+        );
+      },
+    );
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.quizz.description),
-        actions: [
-          _questions.isNotEmpty &&
-                  answerBag.correctAnswersCount == _questions.length
-              ? IconButton(
-                  icon: const Icon(Icons.check),
-                  onPressed: () => showDialog<String>(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                      title: const Text('Quiz submitted'),
-                      content:
-                          const Text('The quiz has been sent successfully!'),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-
-                            Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return QuizScorePage(
-                                    quiz: widget.quizz,
-                                  );
-                                },
-                              ),
-                            );
-                          },
-                          child: const Text('OK'),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              : const SizedBox.shrink(),
-        ],
+        title: Text(quizz.description),
+        actions: [],
       ),
-      body: ListView.builder(
-        shrinkWrap: true,
-        itemCount: _questions.length,
-        itemBuilder: (context, index) {
-          return QuestionCard(
-            index: (index + 1),
-            question: _questions[index],
+      body: questionListRef.when(
+        loading: () {
+          EasyLoading.show(status: 'loading...');
+
+          return const SizedBox.shrink();
+        },
+        error: (error, stack) {
+          EasyLoading.dismiss();
+
+          return const Center(
+            child: Text(
+              'No questions available',
+              textAlign: TextAlign.center,
+            ),
+          );
+        },
+        data: (responseQuestion) {
+          final List<Question> questions = responseQuestion.data;
+          EasyLoading.dismiss();
+
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: questions.length,
+            itemBuilder: (context, index) {
+              return QuestionCard(
+                index: (index + 1),
+                question: questions[index],
+              );
+            },
           );
         },
       ),

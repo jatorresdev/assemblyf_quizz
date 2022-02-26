@@ -8,10 +8,7 @@ class QuestionRepository {
   QuestionRepository({QuestionApiClient? questionApiClient})
       : questionApiClient = questionApiClient ?? QuestionApiClient();
 
-  Future<Response<Question>> getQuestions(int quizId) async {
-    final Response<Question> questions =
-        await questionApiClient.fetchQuestions(quizId);
-
-    return questions;
+  Future<Response<Question>> getQuestions(int quizId) {
+    return questionApiClient.fetchQuestions(quizId);
   }
 }

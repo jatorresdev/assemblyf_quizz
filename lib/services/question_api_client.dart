@@ -27,7 +27,8 @@ class QuestionApiClient {
     );
 
     if (questionsResponse.statusCode != 200) {
-      throw 'An error occurred while retrieving the questions.';
+      return Future.error(
+          Exception('An error occurred while retrieving the questions.'));
     }
 
     final questionsJson = jsonDecode(questionsResponse.body);
