@@ -16,10 +16,7 @@ class QuizRepository {
     return quizApiClient.fetchQuizzes();
   }
 
-  Future<QuizScore> getScore(int quizId, List<CorrectAnswer> answers) async {
-    final QuizScore quizScore =
-        await quizApiClient.score(quizId, jsonEncode(answers));
-
-    return quizScore;
+  Future<QuizScore> getScore(int quizId, List<CorrectAnswer> answers) {
+    return quizApiClient.score(quizId, jsonEncode(answers));
   }
 }

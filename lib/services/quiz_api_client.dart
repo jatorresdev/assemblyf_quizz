@@ -51,7 +51,8 @@ class QuizApiClient {
         body: data);
 
     if (quizScoreResponse.statusCode != 200) {
-      throw 'An error occurred while retrieving the quizzes.';
+      return Future.error(
+          Exception('An error occurred when retrieving the quiz score.'));
     }
 
     final quizScoreJson = jsonDecode(quizScoreResponse.body);

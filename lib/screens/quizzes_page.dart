@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:assemblyf_quizz/providers/quiz_list_provider.dart';
+import 'package:assemblyf_quizz/providers/quiz_provider.dart';
 import 'package:assemblyf_quizz/models/response.dart';
 import 'package:assemblyf_quizz/models/quiz.dart';
 import 'package:assemblyf_quizz/widgets/quizz_card.dart';
