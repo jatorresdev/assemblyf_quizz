@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:assemblyf_quizz/models/correct_answer.dart';
-import 'package:assemblyf_quizz/models/notifiers/answer_bag.dart';
 import 'package:assemblyf_quizz/models/question.dart';
+import 'package:assemblyf_quizz/providers/answers_provider.dart';
 
-class AnswersGrid extends StatefulWidget {
+class AnswersGrid extends ConsumerStatefulWidget {
   const AnswersGrid({
     Key? key,
     required this.question,
@@ -16,10 +16,10 @@ class AnswersGrid extends StatefulWidget {
   final bool isLandscape;
 
   @override
-  State<AnswersGrid> createState() => _AnswersGridState();
+  _AnswersGridState createState() => _AnswersGridState();
 }
 
-class _AnswersGridState extends State<AnswersGrid> {
+class _AnswersGridState extends ConsumerState<AnswersGrid> {
   late Map<String, dynamic> _answers;
   String _selectedAnswer = '';
 
@@ -55,7 +55,7 @@ class _AnswersGridState extends State<AnswersGrid> {
   }
 
   RadioListTile<String> boxAnswer(MapEntry<String, dynamic> answer) {
-    var answerBag = context.read<AnswerBag>();
+    final answersProviderRef = ref.read(answersProvider.notifier);
 
     return RadioListTile(
       title: Text(answer.value),
@@ -65,8 +65,10 @@ class _AnswersGridState extends State<AnswersGrid> {
         setState(() {
           _selectedAnswer = newValue.toString();
 
-          answerBag.add(CorrectAnswer(
-              questionId: widget.question.id, questionAnswer: _selectedAnswer));
+          answersProviderRef.add(CorrectAnswer(
+            questionId: widget.question.id,
+            questionAnswer: _selectedAnswer,
+          ));
         });
       },
     );

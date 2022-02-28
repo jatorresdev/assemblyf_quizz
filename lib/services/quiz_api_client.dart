@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:assemblyf_quizz/models/quiz.dart';
 import 'package:assemblyf_quizz/models/quiz_score.dart';
 import 'package:assemblyf_quizz/models/response.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class QuizApiClient {
   static const baseUrl = "https://assemblyf-quiz-server.herokuapp.com/api";
@@ -28,7 +28,8 @@ class QuizApiClient {
     );
 
     if (quizzesResponse.statusCode != 200) {
-      throw 'An error occurred while retrieving the quizzes.';
+      return Future.error(
+          Exception('An error occurred while retrieving the quizzes.'));
     }
 
     final quizzesJson = jsonDecode(quizzesResponse.body);
@@ -50,7 +51,8 @@ class QuizApiClient {
         body: data);
 
     if (quizScoreResponse.statusCode != 200) {
-      throw 'An error occurred while retrieving the quizzes.';
+      return Future.error(
+          Exception('An error occurred when retrieving the quiz score.'));
     }
 
     final quizScoreJson = jsonDecode(quizScoreResponse.body);
