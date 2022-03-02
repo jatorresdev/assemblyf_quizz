@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:assemblyf_quizz/screens/questions_page.dart';
 import 'package:assemblyf_quizz/models/quiz.dart';
+import 'package:assemblyf_quizz/providers/answers_provider.dart';
 
-class QuizzCard extends StatelessWidget {
-  const QuizzCard({
-    Key? key,
-    required this.quizz,
-  }) : super(key: key);
+class QuizzCard extends ConsumerWidget {
+  const QuizzCard({Key? key, required this.quizz}) : super(key: key);
 
   final Quiz quizz;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       margin: const EdgeInsets.symmetric(
         horizontal: 10,
@@ -45,7 +44,10 @@ class QuizzCard extends StatelessWidget {
           Icons.chevron_right_outlined,
           color: Theme.of(context).primaryColor,
         ),
-        onTap: () => {
+        onTap: () {
+          final answersProviderRef = ref.read(answersProvider.notifier);
+          answersProviderRef.removeAll();
+
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
@@ -54,7 +56,7 @@ class QuizzCard extends StatelessWidget {
                 );
               },
             ),
-          )
+          );
         },
       ),
     );
