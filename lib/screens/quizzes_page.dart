@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:assemblyf_quizz/providers/quiz_provider.dart';
 import 'package:assemblyf_quizz/models/response.dart';
@@ -33,6 +34,33 @@ class QuizzesPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        actions: [
+          PopupMenuButton(
+              child: const Padding(
+                padding: EdgeInsets.all(10),
+                child: Icon(
+                  Icons.more_vert,
+                ),
+              ),
+              itemBuilder: (context) {
+                return [
+                  const PopupMenuItem<int>(
+                    value: 0,
+                    child: Text("Logout"),
+                  ),
+                ];
+              },
+              onSelected: (value) async {
+                if (value == 0) {
+                  await FirebaseAuth.instance.signOut();
+
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/',
+                    (Route<dynamic> route) => false,
+                  );
+                }
+              }),
+        ],
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {

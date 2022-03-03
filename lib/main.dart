@@ -4,7 +4,10 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'package:assemblyf_quizz/screens/signin_page.dart';
 import 'package:assemblyf_quizz/screens/quizzes_page.dart';
+import 'package:assemblyf_quizz/screens/signup_page.dart';
+import 'package:assemblyf_quizz/screens/splash_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +29,10 @@ class QuizzApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const QuizzesPage(title: 'Quizz App'),
+        '/': (context) => const SplashPage(),
+        '/quizzes': (context) => const QuizzesPage(title: 'Quizz App'),
+        '/sign-in': (context) => const SigninPage(),
+        '/sign-up': (context) => const SignupPage(),
       },
       builder: EasyLoading.init(),
     );
