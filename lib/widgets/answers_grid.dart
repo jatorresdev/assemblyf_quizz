@@ -25,7 +25,7 @@ class _AnswersGridState extends ConsumerState<AnswersGrid> {
 
   @override
   void initState() {
-    _answers = widget.question.answers.toMap();
+    _answers = widget.question.answers.toJson();
     _answers.removeWhere((key, value) => value == null);
 
     super.initState();

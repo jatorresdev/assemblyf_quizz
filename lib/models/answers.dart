@@ -20,7 +20,7 @@ class Answers {
     );
   }
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "answerA": answerA,
         "answerB": answerB,
         "answerC": answerC,

@@ -15,6 +15,7 @@ class CorrectAnswer {
     return CorrectAnswer(
       questionId: map['questionId'] as int,
       questionAnswer: map['questionAnswer'] as String,
+      question: map['question'],
       correct: map['correct'],
     );
   }

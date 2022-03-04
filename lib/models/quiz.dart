@@ -25,4 +25,13 @@ class Quiz {
       publishedAt: DateTime.parse(map['attributes']['publishedAt']),
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "description": description,
+        "createdAt": createdAt,
+        "updatedAt": updatedAt,
+        "publishedAt": publishedAt,
+      };
 }

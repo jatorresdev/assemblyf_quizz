@@ -28,7 +28,7 @@ class Question {
     );
   }
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
         "answers": answers,
