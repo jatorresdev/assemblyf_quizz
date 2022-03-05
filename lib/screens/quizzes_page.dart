@@ -45,19 +45,27 @@ class QuizzesPage extends ConsumerWidget {
               itemBuilder: (context) {
                 return [
                   const PopupMenuItem<int>(
+                    value: 1,
+                    child: Text("Create quiz"),
+                  ),
+                  const PopupMenuItem<int>(
                     value: 0,
                     child: Text("Logout"),
                   ),
                 ];
               },
               onSelected: (value) async {
-                if (value == 0) {
-                  await FirebaseAuth.instance.signOut();
+                switch (value) {
+                  case 1:
+                    Navigator.of(context).pushNamed('/create-quiz');
+                    break;
+                  default:
+                    await FirebaseAuth.instance.signOut();
 
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/',
-                    (Route<dynamic> route) => false,
-                  );
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      '/',
+                      (Route<dynamic> route) => false,
+                    );
                 }
               }),
         ],

@@ -1,3 +1,4 @@
+import 'package:assemblyf_quizz/screens/create_quiz_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -31,6 +32,7 @@ class QuizzApp extends StatelessWidget {
       routes: {
         '/': (context) => const SplashPage(),
         '/quizzes': (context) => const QuizzesPage(title: 'Quizz App'),
+        '/create-quiz': (context) => const CreateQuizPage(),
         '/sign-in': (context) => const SigninPage(),
         '/sign-up': (context) => const SignupPage(),
       },
