@@ -5,17 +5,17 @@ class Question {
     required this.id,
     required this.title,
     required this.answers,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.publishedAt,
+    this.createdAt,
+    this.updatedAt,
+    this.publishedAt,
   });
 
   late final int id;
   late final String title;
   late final Answers answers;
-  late final DateTime createdAt;
-  late final DateTime updatedAt;
-  late final DateTime publishedAt;
+  late final DateTime? createdAt;
+  late final DateTime? updatedAt;
+  late final DateTime? publishedAt;
 
   factory Question.fromMap(Map<String, dynamic> map) {
     return Question(
@@ -32,8 +32,8 @@ class Question {
         "id": id,
         "title": title,
         "answers": answers,
-        "createdAt": createdAt,
-        "updatedAt": updatedAt,
-        "publishedAt": publishedAt,
+        if (createdAt != null) "createdAt": createdAt,
+        if (updatedAt != null) "updatedAt": updatedAt,
+        if (updatedAt != null) "publishedAt": updatedAt,
       };
 }

@@ -3,17 +3,17 @@ class Quiz {
     required this.id,
     required this.name,
     required this.description,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.publishedAt,
+    this.createdAt,
+    this.updatedAt,
+    this.publishedAt,
   });
 
   late final int id;
   late final String name;
   late final String description;
-  late final DateTime createdAt;
-  late final DateTime updatedAt;
-  late final DateTime publishedAt;
+  late final DateTime? createdAt;
+  late final DateTime? updatedAt;
+  late final DateTime? publishedAt;
 
   factory Quiz.fromMap(Map<String, dynamic> map) {
     return Quiz(
@@ -30,8 +30,8 @@ class Quiz {
         "id": id,
         "name": name,
         "description": description,
-        "createdAt": createdAt,
-        "updatedAt": updatedAt,
-        "publishedAt": publishedAt,
+        if (createdAt != null) "createdAt": createdAt,
+        if (updatedAt != null) "updatedAt": updatedAt,
+        if (publishedAt != null) "publishedAt": publishedAt,
       };
 }
