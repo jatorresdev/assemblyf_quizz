@@ -1,16 +1,17 @@
 import 'package:flutter/foundation.dart';
 
-import 'package:assemblyf_quizz/models/quiz.dart';
 import 'package:assemblyf_quizz/models/question.dart';
 
 @immutable
 class RequestCreateQuiz {
   const RequestCreateQuiz({
-    required this.quiz,
+    required this.name,
+    required this.description,
     required this.questions,
   });
 
-  final Quiz quiz;
+  final String name;
+  final String description;
   final List<Question> questions;
 
   @override
@@ -18,14 +19,16 @@ class RequestCreateQuiz {
       identical(this, other) ||
       other is RequestCreateQuiz &&
           runtimeType == other.runtimeType &&
-          quiz == other.quiz &&
+          name == other.name &&
+          description == other.description &&
           questions == other.questions;
 
   @override
-  int get hashCode => Object.hash(quiz, questions);
+  int get hashCode => Object.hash(name, description, questions);
 
   Map<String, dynamic> toJson() => {
-        "quiz": quiz.toJson(),
+        "name": name,
+        "description": description,
         "questions": questions.map((question) => question.toJson()).toList(),
       };
 }

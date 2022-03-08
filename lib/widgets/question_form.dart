@@ -25,6 +25,7 @@ class _QuestionFormState extends State<QuestionForm> {
       margin: const EdgeInsets.only(bottom: 20),
       shadowColor: Colors.grey,
       child: Column(
+        key: Key(position.toString()),
         children: [
           Padding(
             padding: const EdgeInsets.all(5),

@@ -63,7 +63,7 @@ class QuizApiClient {
   }
 
   Future<Quiz> create(String requestBody) async {
-    const createQuizUrl = '$baseUrl/quizzes?populate=questions';
+    const createQuizUrl = '$baseUrl/quizzes';
 
     final quizResponse = await httpClient.post(
       Uri.parse(createQuizUrl),
@@ -81,7 +81,7 @@ class QuizApiClient {
 
     final quizJson = jsonDecode(quizResponse.body);
 
-    Quiz quiz = Quiz.fromMap(quizJson);
+    Quiz quiz = Quiz.fromMap(quizJson['data']);
 
     return quiz;
   }

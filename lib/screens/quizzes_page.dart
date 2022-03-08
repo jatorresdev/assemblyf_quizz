@@ -45,10 +45,6 @@ class QuizzesPage extends ConsumerWidget {
               itemBuilder: (context) {
                 return [
                   const PopupMenuItem<int>(
-                    value: 1,
-                    child: Text("Create quiz"),
-                  ),
-                  const PopupMenuItem<int>(
                     value: 0,
                     child: Text("Logout"),
                   ),
@@ -57,7 +53,6 @@ class QuizzesPage extends ConsumerWidget {
               onSelected: (value) async {
                 switch (value) {
                   case 1:
-                    Navigator.of(context).pushNamed('/create-quiz');
                     break;
                   default:
                     await FirebaseAuth.instance.signOut();
@@ -69,6 +64,11 @@ class QuizzesPage extends ConsumerWidget {
                 }
               }),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.orange,
+        child: const Icon(Icons.add),
+        onPressed: () => Navigator.of(context).pushNamed('/create-quiz'),
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {

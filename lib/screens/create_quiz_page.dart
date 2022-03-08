@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:assemblyf_quizz/models/quiz.dart';
+import 'package:assemblyf_quizz/models/request_create_quiz.dart';
 import 'package:assemblyf_quizz/widgets/question_form.dart';
+import 'package:assemblyf_quizz/repositories/quiz_repository.dart';
 
 class CreateQuizPage extends StatefulWidget {
   const CreateQuizPage({Key? key}) : super(key: key);
@@ -14,6 +17,20 @@ class _CreateQuizPageState extends State<CreateQuizPage> {
   TextEditingController descriptionController = TextEditingController();
   int _count = 1;
 
+  onCreateQuiz() async {
+    try {
+      final RequestCreateQuiz requestCreateQuiz = RequestCreateQuiz(
+          name: nameController.text.trim(),
+          description: descriptionController.text.trim(),
+          questions: []);
+
+      QuizRepository quizRepository = QuizRepository();
+      await quizRepository.create(requestCreateQuiz);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +39,7 @@ class _CreateQuizPageState extends State<CreateQuizPage> {
         title: const Text("Create Quiz"),
         actions: [
           IconButton(
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             onPressed: () async {
               setState(() {
                 _count++;
@@ -46,7 +63,7 @@ class _CreateQuizPageState extends State<CreateQuizPage> {
           Padding(
             padding: const EdgeInsets.all(10),
             child: TextField(
-              controller: nameController,
+              controller: descriptionController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Description',
@@ -77,7 +94,7 @@ class _CreateQuizPageState extends State<CreateQuizPage> {
         child: ElevatedButton(
             style: ElevatedButton.styleFrom(primary: Colors.orange),
             child: const Text("Add Quiz"),
-            onPressed: () => {}),
+            onPressed: onCreateQuiz),
       ),
     );
   }
