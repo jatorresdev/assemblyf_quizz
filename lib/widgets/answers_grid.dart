@@ -66,7 +66,7 @@ class _AnswersGridState extends ConsumerState<AnswersGrid> {
           _selectedAnswer = newValue.toString();
 
           answersProviderRef.add(CorrectAnswer(
-            questionId: widget.question.id,
+            questionId: widget.question.id!,
             questionAnswer: _selectedAnswer,
           ));
         });

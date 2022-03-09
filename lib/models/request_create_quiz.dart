@@ -29,6 +29,9 @@ class RequestCreateQuiz {
   Map<String, dynamic> toJson() => {
         "name": name,
         "description": description,
-        "questions": questions.map((question) => question.toJson()).toList(),
+        "questions": questions
+            .map((question) =>
+                {"title": question.title, ...question.answers.toJson()})
+            .toList(),
       };
 }

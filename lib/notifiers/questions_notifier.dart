@@ -5,10 +5,15 @@ import 'package:assemblyf_quizz/models/question.dart';
 class QuestionsNotifier extends StateNotifier<List<Question>> {
   QuestionsNotifier() : super([]);
 
-  void add(Question question) {
+  void add(Question question, int? position) {
     List<Question> questions = List.from(state);
 
-    questions.add(question);
+    if (questions.asMap().containsKey(position)) {
+      questions[position!] = question;
+    } else {
+      questions.add(question);
+    }
+
     state = questions;
   }
 
