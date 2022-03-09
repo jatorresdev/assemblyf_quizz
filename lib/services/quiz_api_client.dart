@@ -61,4 +61,28 @@ class QuizApiClient {
 
     return quizScore;
   }
+
+  Future<Quiz> create(String requestBody) async {
+    const createQuizUrl = '$baseUrl/quizzes';
+
+    final quizResponse = await httpClient.post(
+      Uri.parse(createQuizUrl),
+      headers: {
+        HttpHeaders.contentTypeHeader: 'application/json',
+        HttpHeaders.acceptHeader: 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer $bearerToken',
+      },
+      body: '{"data": $requestBody}',
+    );
+
+    if (quizResponse.statusCode != 200) {
+      return Future.error(Exception('An error occurred when creating a quiz.'));
+    }
+
+    final quizJson = jsonDecode(quizResponse.body);
+
+    Quiz quiz = Quiz.fromMap(quizJson['data']);
+
+    return quiz;
+  }
 }

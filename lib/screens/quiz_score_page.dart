@@ -5,8 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:assemblyf_quizz/models/quiz.dart';
 import 'package:assemblyf_quizz/models/correct_answer.dart';
 import 'package:assemblyf_quizz/models/request_quiz_score.dart';
+import 'package:assemblyf_quizz/models/quiz_score.dart';
 import 'package:assemblyf_quizz/providers/answers_provider.dart';
 import 'package:assemblyf_quizz/providers/quiz_provider.dart';
+import 'package:assemblyf_quizz/services/firebase/user_answers.dart';
 
 class QuizScorePage extends ConsumerWidget {
   const QuizScorePage({Key? key, required this.quiz}) : super(key: key);
@@ -19,6 +21,7 @@ class QuizScorePage extends ConsumerWidget {
     final RequestQuizScore requestQuizScore =
         RequestQuizScore(quiz: quiz, correctAnswers: correctAnswers);
     final quizScoreRef = ref.watch(quizScoreProvider(requestQuizScore));
+    final UserAnswers _userAnswers = UserAnswers();
 
     return Scaffold(
       appBar: AppBar(
@@ -60,8 +63,9 @@ class QuizScorePage extends ConsumerWidget {
                           style: Theme.of(context).textTheme.headline6,
                         );
                       },
-                      data: (responseQuizScore) {
+                      data: (QuizScore responseQuizScore) {
                         EasyLoading.dismiss();
+                        _userAnswers.add(responseQuizScore);
 
                         return Text(
                           '${responseQuizScore.score}/${responseQuizScore.questionCount}',

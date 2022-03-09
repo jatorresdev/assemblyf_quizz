@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "581351916230",
+    "project_id": "assemblyf-quizz",
+    "storage_bucket": "assemblyf-quizz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:581351916230:android:5a5adddfab7b84f6c38dc7",
+        "android_client_info": {
+          "package_name": "com.example.assemblyf_quizz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "581351916230-v1euia9qrqiia22fassc6q5s2bbtrvva.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYPwZbMvTyf0MX7zU0cgBHqYBX2k6qs6o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "581351916230-v1euia9qrqiia22fassc6q5s2bbtrvva.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "581351916230-5nvojrpnl0m4ravgtvdojm230bajk0ee.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.assemblyf-quizz"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
