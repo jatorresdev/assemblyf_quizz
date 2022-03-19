@@ -40,7 +40,6 @@ class QuizzApp extends StatelessWidget {
         '/quizzes': (context) => const QuizzesPage(title: 'Quizz App'),
         '/create-quiz': (context) => const CreateQuizPage(),
         '/sign-in': (context) => const SigninPage(),
-        '/sign-up': (context) => const SignupPage(),
       },
       builder: EasyLoading.init(),
     );
