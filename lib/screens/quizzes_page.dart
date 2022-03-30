@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +8,7 @@ import 'package:assemblyf_quizz/providers/quiz_provider.dart';
 import 'package:assemblyf_quizz/models/response.dart';
 import 'package:assemblyf_quizz/models/quiz.dart';
 import 'package:assemblyf_quizz/widgets/quizz_card.dart';
+import 'package:assemblyf_quizz/screens/create_quiz_page.dart';
 
 class QuizzesPage extends ConsumerWidget {
   const QuizzesPage({Key? key, required this.title}) : super(key: key);
@@ -65,10 +67,30 @@ class QuizzesPage extends ConsumerWidget {
               }),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.orange,
-        child: const Icon(Icons.add),
-        onPressed: () => Navigator.of(context).pushNamed('/create-quiz'),
+      floatingActionButton: OpenContainer(
+        transitionType: ContainerTransitionType.fade,
+        openBuilder: (BuildContext context, VoidCallback _) {
+          return const CreateQuizPage();
+        },
+        closedElevation: 6.0,
+        closedShape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(56 / 2),
+          ),
+        ),
+        closedColor: Theme.of(context).colorScheme.secondary,
+        closedBuilder: (BuildContext context, VoidCallback openContainer) {
+          return SizedBox(
+            height: 56.0,
+            width: 56.0,
+            child: Center(
+              child: Icon(
+                Icons.add,
+                color: Theme.of(context).colorScheme.onSecondary,
+              ),
+            ),
+          );
+        },
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {

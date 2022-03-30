@@ -1,4 +1,3 @@
-import 'package:assemblyf_quizz/screens/create_quiz_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -9,6 +8,7 @@ import 'package:assemblyf_quizz/screens/signin_page.dart';
 import 'package:assemblyf_quizz/screens/quizzes_page.dart';
 import 'package:assemblyf_quizz/screens/signup_page.dart';
 import 'package:assemblyf_quizz/screens/splash_page.dart';
+import 'package:assemblyf_quizz/screens/create_quiz_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +27,12 @@ class QuizzApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.orange,
+      ).copyWith(
+        pageTransitionsTheme: const PageTransitionsTheme(
+          builders: <TargetPlatform, PageTransitionsBuilder>{
+            TargetPlatform.android: ZoomPageTransitionsBuilder(),
+          },
+        ),
       ),
       initialRoute: '/',
       routes: {
@@ -34,7 +40,6 @@ class QuizzApp extends StatelessWidget {
         '/quizzes': (context) => const QuizzesPage(title: 'Quizz App'),
         '/create-quiz': (context) => const CreateQuizPage(),
         '/sign-in': (context) => const SigninPage(),
-        '/sign-up': (context) => const SignupPage(),
       },
       builder: EasyLoading.init(),
     );

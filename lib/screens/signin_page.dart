@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:assemblyf_quizz/screens/quizzes_page.dart';
 import 'package:assemblyf_quizz/screens/signup_page.dart';
 import 'package:assemblyf_quizz/services/firebase/auth.dart';
+import 'package:assemblyf_quizz/widgets/scale-route.dart';
 
 class SigninPage extends StatefulWidget {
   const SigninPage({Key? key}) : super(key: key);
@@ -98,7 +98,8 @@ class _SigninPageState extends State<SigninPage> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/sign-up');
+                    Navigator.of(context)
+                        .push(ScaleRoute(page: const SignupPage()));
                   },
                 )
               ],
