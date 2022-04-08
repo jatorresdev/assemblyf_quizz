@@ -1,0 +1,42 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "attributes": {
+                "description": "Sports",
+                "name": "Sports",
+                "createdAt": "2022-02-18T02:56:07.502Z",
+                "updatedAt": "2022-02-18T02:58:44.364Z",
+                "publishedAt": "2022-02-18T02:58:44.360Z"
+            }
+        },
+        {
+            "id": 2,
+            "attributes": {
+                "description": "Mythology",
+                "name": "Mythology",
+                "createdAt": "2022-02-18T03:45:08.565Z",
+                "updatedAt": "2022-02-18T03:45:09.853Z",
+                "publishedAt": "2022-02-18T03:45:09.850Z"
+            }
+        },
+        {
+            "id": 3,
+            "attributes": {
+                "description": "Geography",
+                "name": "Geography",
+                "createdAt": "2022-02-18T04:50:00.292Z",
+                "updatedAt": "2022-02-18T04:50:01.624Z",
+                "publishedAt": "2022-02-18T04:50:01.622Z"
+            }
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 25,
+            "pageCount": 1,
+            "total": 3
+        }
+    }
+}

@@ -1,0 +1,142 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "attributes": {
+                "title": "¿At which bridge does the annual Oxford and Cambridge boat race start?",
+                "answerA": "Battersea",
+                "answerB": "Vauxhall",
+                "answerC": "Putney",
+                "answerD": "Hammersmith",
+                "createdAt": "2022-02-18T02:57:34.216Z",
+                "updatedAt": "2022-02-18T02:58:52.576Z",
+                "publishedAt": "2022-02-18T02:58:52.573Z"
+            }
+        },
+        {
+            "id": 2,
+            "attributes": {
+                "title": "¿Where was the Games of the XXII Olympiad held?",
+                "answerA": "Tokyo",
+                "answerB": "Moscow",
+                "answerC": "Los Angeles",
+                "answerD": "Barcelona",
+                "createdAt": "2022-02-18T03:04:08.119Z",
+                "updatedAt": "2022-02-18T03:04:09.659Z",
+                "publishedAt": "2022-02-18T03:04:09.652Z"
+            }
+        },
+        {
+            "id": 3,
+            "attributes": {
+                "title": "¿Which soccer team won the Copa América 2015 Championship ?",
+                "answerA": "Chile",
+                "answerB": "Argentina",
+                "answerC": "Paraguay",
+                "answerD": "Brazil",
+                "createdAt": "2022-02-18T03:31:30.941Z",
+                "updatedAt": "2022-02-18T03:35:05.547Z",
+                "publishedAt": "2022-02-18T03:31:32.849Z"
+            }
+        },
+        {
+            "id": 4,
+            "attributes": {
+                "title": "¿What is the oldest team in Major League Baseball?",
+                "answerA": "St. Louis Cardinals",
+                "answerB": "Chicago Cubs",
+                "answerC": "Cincinnati Reds",
+                "answerD": "Atlanta Braves",
+                "createdAt": "2022-02-18T03:32:44.445Z",
+                "updatedAt": "2022-02-18T03:34:37.727Z",
+                "publishedAt": "2022-02-18T03:32:45.774Z"
+            }
+        },
+        {
+            "id": 5,
+            "attributes": {
+                "title": "¿Which car manufacturer won the 2017 24 Hours of Le Mans?",
+                "answerA": "Audi",
+                "answerB": "Toyota",
+                "answerC": "Porsche",
+                "answerD": "Chevrolet",
+                "createdAt": "2022-02-18T03:34:08.232Z",
+                "updatedAt": "2022-02-18T03:34:16.327Z",
+                "publishedAt": "2022-02-18T03:34:16.324Z"
+            }
+        },
+        {
+            "id": 6,
+            "attributes": {
+                "title": "¿Who won the premier league title in the 2015-2016 season following a fairy tale run?",
+                "answerA": "Watford",
+                "answerB": "Leicester City",
+                "answerC": "Stoke City",
+                "answerD": "Tottenham Hotspur",
+                "createdAt": "2022-02-18T03:36:24.570Z",
+                "updatedAt": "2022-02-18T03:36:26.089Z",
+                "publishedAt": "2022-02-18T03:36:26.084Z"
+            }
+        },
+        {
+            "id": 7,
+            "attributes": {
+                "title": "¿Which professional wrestler fell from the rafters to his death during a live Pay-Per-View event in 1999?",
+                "answerA": "Chris Benoit",
+                "answerB": "Lex Luger",
+                "answerC": "Al Snow",
+                "answerD": "Owen Hart",
+                "createdAt": "2022-02-18T03:37:26.882Z",
+                "updatedAt": "2022-02-18T03:37:29.559Z",
+                "publishedAt": "2022-02-18T03:37:29.556Z"
+            }
+        },
+        {
+            "id": 8,
+            "attributes": {
+                "title": "¿Who was the topscorer for England national football team?",
+                "answerA": "Wayne Rooney",
+                "answerB": "David Beckham",
+                "answerC": "Steven Gerrard",
+                "answerD": "Michael Owen",
+                "createdAt": "2022-02-18T03:38:24.859Z",
+                "updatedAt": "2022-02-18T03:38:26.255Z",
+                "publishedAt": "2022-02-18T03:38:26.251Z"
+            }
+        },
+        {
+            "id": 9,
+            "attributes": {
+                "title": "¿What is “The Sport of Kings”?",
+                "answerA": "Chess",
+                "answerB": "Jousting",
+                "answerC": "Horse Racing",
+                "answerD": "Fencing",
+                "createdAt": "2022-02-18T03:41:16.343Z",
+                "updatedAt": "2022-02-18T03:41:18.349Z",
+                "publishedAt": "2022-02-18T03:41:18.347Z"
+            }
+        },
+        {
+            "id": 10,
+            "attributes": {
+                "title": "¿In Canadian football, scoring a rouge is worth how many points?",
+                "answerA": "2",
+                "answerB": "1",
+                "answerC": "4",
+                "answerD": "3",
+                "createdAt": "2022-02-18T03:42:05.199Z",
+                "updatedAt": "2022-02-18T03:42:06.687Z",
+                "publishedAt": "2022-02-18T03:42:06.684Z"
+            }
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "pageSize": 25,
+            "pageCount": 1,
+            "total": 10
+        }
+    }
+}
