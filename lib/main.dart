@@ -6,7 +6,6 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'package:assemblyf_quizz/screens/signin_page.dart';
 import 'package:assemblyf_quizz/screens/quizzes_page.dart';
-import 'package:assemblyf_quizz/screens/signup_page.dart';
 import 'package:assemblyf_quizz/screens/splash_page.dart';
 import 'package:assemblyf_quizz/screens/create_quiz_page.dart';
 

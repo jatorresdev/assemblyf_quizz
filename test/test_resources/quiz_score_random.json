@@ -1,0 +1,22 @@
+{
+    "quiz": {
+        "id": 371,
+        "attributes": {
+            "description": "Sports",
+            "name": "Sports",
+            "createdAt": "2022-02-18T02:56:07.502Z",
+            "updatedAt": "2022-02-18T02:58:44.364Z",
+            "publishedAt": "2022-02-18T02:58:44.360Z"
+        }
+    },
+    "answers": [
+        {
+            "questionId": 39,
+            "questionAnswer": "Vauxhall",
+            "correct": false,
+            "question": "¿At which bridge does the annual Oxford and Cambridge boat race start?"
+        }
+    ],
+    "score": 0,
+    "questionCount": 10
+}
