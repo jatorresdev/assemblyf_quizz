@@ -26,7 +26,8 @@ void main() {
       final response = Response<Question>.fromMap(jsonDecode(file));
 
       expect(response.data.length, 10);
-      // expect(quizzes.data[0].name, 'Sports');
+      expect(response.data[0].title,
+          '¿At which bridge does the annual Oxford and Cambridge boat race start?');
       expect(response.meta?.pagination.total, 10);
     });
   });
